@@ -1,0 +1,57 @@
+package com.example.gradebookbackend.models;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "users", schema = "public")
+public class User{
+    @Id
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer user_id;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "patronymic")
+    private String patronymic;
+
+    @Column(name = "group_id")
+    private Integer group_id;
+
+    @Column(name = "subject_id")
+    private Integer subject_id;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"),
+            schema = "public"
+    )
+
+    private Set<Role> roles = new HashSet<>();
+
+    public boolean isEnabled() {
+        //return user.isEnabled();
+        return true;
+    }
+}
