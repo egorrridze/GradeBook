@@ -2,7 +2,6 @@ package com.example.gradebookbackend;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -56,8 +55,8 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     protected String determineTargetUrl(final Authentication authentication) {
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("STUDENT", "/templates/index.html");
-        roleTargetUrlMap.put("TEACHER", "/");
+        roleTargetUrlMap.put("STUDENT", "/");
+        roleTargetUrlMap.put("TEACHER", "/home");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {

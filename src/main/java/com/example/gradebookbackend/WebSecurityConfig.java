@@ -1,7 +1,6 @@
 package com.example.gradebookbackend;
 
 import com.example.gradebookbackend.services.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 
 @Configuration
@@ -51,7 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("USER", "TEACHER", "STUDENT", "ADMIN")
+                .antMatchers("/").hasAnyAuthority("STUDENT", "ADMIN")
+                .antMatchers("/home").hasAnyAuthority("TEACHER", "ADMIN")
                 .antMatchers("/new").hasAnyAuthority("TEACHER", "STUDENT")
                 .antMatchers("/edit/**").hasAnyAuthority("TEACHER", "STUDENT")
                 .antMatchers("/delete/**").hasAuthority("TEACHER")

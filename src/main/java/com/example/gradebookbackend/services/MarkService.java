@@ -13,10 +13,6 @@ public class MarkService {
     @Autowired
     private MarkRepository repo;
 
-//    public List<Mark> getMarksByStudentSemester(/*Integer student_id, Integer semester*/) {
-//        return repo.getMarksByStudentSemester(/*student_id, semester*/);
-//    }
-
     public List<Mark> listAll() {
         return repo.findAll();
     }

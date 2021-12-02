@@ -18,38 +18,47 @@
 		<input type="submit" value="Logout" />
 	</form>
 	
-	<h1>Product Manager</h1>
-	<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
+	<h1>Grade Book</h1>
+	<div sec:authorize="hasAnyAuthority('CREATOR', 'TEACHER')">
 		<a href="new">Create New Product</a>
 	</div>
+
+	<form th:action="@{/}" method="post">
+		<input type="number" name="num" th:name="semester" placeholder="Choose semester" />
+		<button type="submit">Go</button>
+	</form>
 	
 	<br/><br/>
 	<table border="1" cellpadding="10">
 		<thead>
 			<tr>
-				<th>Product ID</th>
-				<th>Name</th>
-				<th>Brand</th>
-				<th>Made In</th>
-				<th>Price</th>
-				
-				<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>				
+				<th>Semester</th>
+				<th>Subject</th>
+				<th>Mark</th>
+				<th sec:authorize="hasAnyAuthority('STUDENT')">Teacher</th>
+				<th sec:authorize="hasAnyAuthority('TEACHER')">Student</th>
+
+<!--				<th sec:authorize="hasAnyAuthority('ADMIN', 'STUDENT')">Actions</th>-->
 				
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="mark : ${listMarks}">
-				<td th:text="${mark.teacher_id}">Product ID</td>
-				<td th:text="${mark.student_id}">Name</td>
-				<td th:text="${product.brand}">Brand</td>
-				<td th:text="${product.madein}">Made in</td>
-				<td th:text="${product.price}">Price</td>
+			<tr th:each="mark : ${marks}">
+				<td th:text="${mark.getSemester()}">Semester</td>
+				<td th:text="${mark.getSubjectName()}">Subject</td>
+				<td th:text="${mark.getMark()}">Mark</td>
+				<td sec:authorize="hasAnyAuthority('STUDENT')" th:text="${mark.getTeacherName()}">Teacher</td>
+				<td sec:authorize="hasAnyAuthority('TEACHER')" th:text="${mark.getStudentName()}">Student</td>
+
+				<!--				<td th:text="${product.brand}">Brand</td>-->
+<!--				<td th:text="${product.madein}">Made in</td>-->
+<!--				<td th:text="${product.price}">Price</td>-->
 				
-				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<a th:href="@{'/edit/' + ${product.id}}">Edit</a>			
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${product.id}}">Delete</a>
-				</td>
+<!--				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">-->
+<!--					<a th:href="@{'/edit/' + ${product.id}}">Edit</a>			-->
+<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${product.id}}">Delete</a>-->
+<!--				</td>-->
 			</tr>
 		</tbody>
 	</table>
