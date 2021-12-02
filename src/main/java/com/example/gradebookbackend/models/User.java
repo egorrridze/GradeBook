@@ -49,8 +49,21 @@ public class User{
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             schema = "public"
     )
-
     private Set<Role> roles = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id", insertable = false, updatable = false)
+    private Group group;
+
+    public String getGroupName() {
+        return group.getName();
+    }
+
+    public String getSurnameInitials() {
+        return this.getSurname().toString() + " " +
+                this.getName().charAt(0) + "." +
+                (this.getPatronymic().isEmpty() ? "" : this.getPatronymic().charAt(0) + ".");
+    }
 
     public boolean isEnabled() {
         //return user.isEnabled();

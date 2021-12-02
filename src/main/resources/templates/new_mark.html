@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Add mark</title>
+</head>
+<body>
+<!--    <select name="group_choice">-->
+<!--        <option>Select</option>-->
+<!--        <option th:action="@{/new_mark}" method="post" th:each="group : ${groups}" th:value="${group.getGroup_id()}" th:text="${group.getName()}"></option>-->
+<!--    </select>-->
+<form th:action="@{/new_mark}" method="post">
+    <select name="semester_choice">
+        <option>Semester</option>
+        <option th:each="n : ${#numbers.sequence(1,8)}" th:value="${n}" th:text="${n}"/>
+    </select>
+    <select name="subject_choice">
+        <option>Subject</option>
+        <option th:each="subject : ${subjects}" th:value="${subject.getSubject_id()}" th:text="${subject.getName()}"/>
+    </select>
+    <select name="student_choice">
+        <option>Student</option>
+        <option th:each="student : ${students}" th:value="${student.getUser_id()}" th:text="${student.getSurnameInitials()}"/>
+    </select>
+    <select name="mark_choice">
+        <option>Mark</option>
+        <option th:each="n : ${#numbers.sequence(1,5)}" th:value="${n}" th:text="${n}"/>
+    </select>
+    <button type="submit">Go</button>
+</form>
+</body>
+</html>

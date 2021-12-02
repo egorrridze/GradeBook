@@ -34,6 +34,14 @@ public class Mark {
     @Column(name = "semester")
     private Integer semester;
 
+    public Mark(Integer teacher_id, Integer student_id, Integer subject_id, Integer mark, Integer semester) {
+        this.teacher_id = teacher_id;
+        this.student_id = student_id;
+        this.subject_id = subject_id;
+        this.mark = mark;
+        this.semester = semester;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id", insertable = false, updatable = false)
     private Subject subject;
