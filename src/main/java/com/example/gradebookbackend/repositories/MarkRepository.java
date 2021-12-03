@@ -10,15 +10,15 @@ public interface MarkRepository extends JpaRepository<Mark, Integer> {
 
     List<Mark> findBySemester(Integer semester);
 
-    @Query("SELECT m FROM Mark m WHERE m.student_id = :username")
+    @Query("SELECT m FROM Mark m WHERE m.student_id = :username ORDER BY m.semester")
     List<Mark> findByStudent_id(@Param("username") Integer username);
 
-    @Query("SELECT m FROM Mark m WHERE m.student_id = :username AND m.semester = :semester")
+    @Query("SELECT m FROM Mark m WHERE m.student_id = :username AND m.semester = :semester ORDER BY m.semester")
     List<Mark> findByStudent_idAndSemester(@Param("username") Integer username, @Param("semester") Integer semester);
 
-    @Query("SELECT m FROM Mark m WHERE m.teacher_id = :username")
+    @Query("SELECT m FROM Mark m WHERE m.teacher_id = :username ORDER BY m.semester")
     List<Mark> findByTeacher_id(@Param("username") Integer username);
 
-    @Query("SELECT m FROM Mark m WHERE m.teacher_id = :username AND m.semester = :semester")
+    @Query("SELECT m FROM Mark m WHERE m.teacher_id = :username AND m.semester = :semester ORDER BY m.semester")
     List<Mark> findByTeacher_idAndSemester(@Param("username") Integer username, @Param("semester") Integer semester);
 }

@@ -30,7 +30,6 @@ public class AppController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-
     @Autowired
     private UserRepository userRepo;
     @Autowired
@@ -61,7 +60,6 @@ public class AppController {
         return "index";
     }
 
-
     @RequestMapping("/home")
     public String viewTeacherHomePage(Map<String, Object> model) {
 
@@ -83,8 +81,6 @@ public class AppController {
     @RequestMapping("/new_mark")
     public String newMarkPage(@RequestParam(value = "student_choice", required = false) Integer student_choice, Map<String, Object> model) {
 
-//        Iterable<Group> groups = groupRepo.findAllWithoutTest();
-//        model.put("groups", groups);
         Iterable<Subject> subjects = subjectRepo.findAllWithoutTest();
         model.put("subjects", subjects);
 
